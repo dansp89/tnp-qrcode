@@ -1,53 +1,48 @@
-# Configuração simplificada para o Nixpacks
+# Configuração para usar Bun no Nixpacks
 [phases.setup]
-# Usando Node.js 20 que tem melhor suporte ao Bun
-nixPkgs = ['nodejs-20_x', 'bun']
+nixPkgs = [
+  'nodejs-20_x',
+  'bun',
+  'python3',
+  'gcc',
+  'pkg-config',
+  'pango',
+  'cairo',
+  'pango',
+  'libjpeg',
+  'giflib',
+  'librsvg'
+]
 
 [phases.install]
-# Instala as dependências do projeto
 cmds = [
   'curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.43"',
   'export PATH="$HOME/.bun/bin:$PATH"',
   'bun --version',
-  'bun install --frozen-lockfile'
+  'bun install --no-save'
 ]
 
 [phases.build]
-# Compila o TypeScript
 cmds = [
+  'export PATH="$HOME/.bun/bin:$PATH"',
   'bun run build'
 ]
 
 [start]
-# Comando para iniciar a aplicação
 cmd = 'bun run start'
 
 [build.args]
-# Força o uso do Node.js 20
 NODE_VERSION = "20"
 
 [build.environment]
-# Variáveis de ambiente necessárias
 NODE_ENV = "production"
 PORT = "6541"
+BUN_INSTALL = "$HOME/.bun"
+PATH = "$BUN_INSTALL/bin:$PATH"
 
 # Desabilita o cache do Nixpacks para evitar problemas
 [build]
 cache = false
-
-# Instala dependências do sistema necessárias
-[phases.setup.nix]
-  [[phases.setup.nix.pkg]]
-  name = "python3"
-  
-  [[phases.setup.nix.pkg]]
-  name = "gcc"
-  
-  [[phases.setup.nix.pkg]]
-  name = "pkg-config"
-  
-  [[phases.setup.nix.pkg]]
-  name = "pango"
   
   [[phases.setup.nix.pkg]]
   name = "cairo"
