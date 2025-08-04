@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ['nodejs-18_x', 'bun', 'python3', 'gcc', 'pkg-config', 'pango', 'cairo', 'jpeg', 'giflib', 'librsvg']
+
+[phases.install]
+cmds = [
+  'bun install --frozen-lockfile',
+]
+
+[phases.build]
+cmds = [
+  'bun run build'
+]
+
+[start]
+cmd = 'bun run start'
