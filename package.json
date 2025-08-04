@@ -18,8 +18,7 @@
   "private": false,
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts",
-    "build": "tsc"
+    "start": "bun run src/index.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -36,8 +35,9 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "typescript": "^5.3.3",
-    "bun-types": "^1.0.0"
+    "bun": "^1.2.19",
+    "bun-types": "^1.0.0",
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.3.3"
