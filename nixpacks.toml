@@ -1,7 +1,6 @@
 [phases.setup]
 nixPkgs = [
   'nodejs-18_x',
-  'bun',
   'python3',
   'gcc',
   'pkg-config',
@@ -10,17 +9,32 @@ nixPkgs = [
   'libjpeg',
   'giflib',
   'librsvg',
+  'unzip',
+  'curl',
+  'wget',
+  'xz',
   'unzip'
 ]
 
+# Instala o Bun manualmente para garantir a versão correta
+setup = "curl -fsSL https://bun.sh/install | bash -s 'bun-v1.2.3' && export BUN_INSTALL=\"$HOME/.bun\" && export PATH=\"$BUN_INSTALL/bin:$PATH\""
+
 [phases.install]
-cmds = ["bun install"]
+cmds = [
+  "export BUN_INSTALL=\"$HOME/.bun\" && export PATH=\"$BUN_INSTALL/bin:$PATH\"",
+  "bun --version",
+  "bun install --frozen-lockfile"
+]
 
 [phases.build]
-cmds = ["bun run build"]
+cmds = [
+  "export BUN_INSTALL=\"$HOME/.bun\" && export PATH=\"$BUN_INSTALL/bin:$PATH\"",
+  "bun --version",
+  "bun run build"
+]
 
 [start]
-cmd = "bun run start"
+cmd = "export BUN_INSTALL=\"$HOME/.bun\" && export PATH=\"$BUN_INSTALL/bin:$PATH\" && bun run start"
 
 [variables]
 NODE_ENV = "production"

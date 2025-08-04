@@ -1,42 +1,10 @@
-# Configuração para usar Yarn no Nixpacks
-[phases.setup]
-nixPkgs = [
-  'nodejs-18_x',
-  'yarn',
-  'python3',
-  'gcc',
-  'pkg-config',
-  'pango',
-  'cairo',
-  'libjpeg',
-  'giflib',
-  'librsvg',
-  'unzip'
-]
+# Usa o Dockerfile personalizado para o build
+[phases]
+build = "dockerfile"
 
-[phases.install]
-cmds = [
-  'yarn set version stable',
-  'yarn install --frozen-lockfile'
-]
-
-[phases.build]
-cmds = [
-  'yarn build'
-]
-
-[start]
-cmd = 'yarn start'
-
-[build.args]
-NODE_VERSION = "20"
+[build]
+dockerfile = "Dockerfile.nixpacks"
 
 [build.environment]
 NODE_ENV = "production"
 PORT = "6541"
-BUN_INSTALL = "$HOME/.bun"
-PATH = "$BUN_INSTALL/bin:$PATH"
-
-# Desabilita o cache do Nixpacks para evitar problemas
-[build]
-cache = false
