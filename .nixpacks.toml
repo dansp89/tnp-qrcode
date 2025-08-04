@@ -1,15 +1,28 @@
 [phases.setup]
-nixPkgs = ['nodejs-18_x', 'bun', 'python3', 'gcc', 'pkg-config', 'pango', 'cairo', 'jpeg', 'giflib', 'librsvg']
+# Usando Node.js 20 que tem melhor suporte ao Bun
+nixPkgs = ['nodejs-20_x', 'bun', 'python3', 'gcc', 'pkg-config', 'pango', 'cairo', 'jpeg', 'giflib', 'librsvg']
 
 [phases.install]
+# Instala as dependências do projeto
 cmds = [
-  'bun install --frozen-lockfile',
+  'bun install --frozen-lockfile'
 ]
 
 [phases.build]
+# Compila o TypeScript
 cmds = [
   'bun run build'
 ]
 
 [start]
+# Comando para iniciar a aplicação
 cmd = 'bun run start'
+
+[build.args]
+# Força o uso do Node.js 20
+NODE_VERSION = "20"
+
+[build.environment]
+# Variáveis de ambiente necessárias
+NODE_ENV = "production"
+PORT = "6541"

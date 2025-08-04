@@ -1,16 +1,23 @@
 # Use a imagem base oficial do Node.js 20 (LTS)
 FROM node:20-slim
 
-# Instala o Bun (mais rápido que o npm/yarn)
+# Instala dependências do sistema necessárias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
-    && curl -fsSL https://bun.sh/install | bash \
-    && apt-get clean \
+    unzip \
+    xz-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# Instala o Bun (versão específica para maior estabilidade)
+RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.43"
 
 # Adiciona o Bun ao PATH
 ENV PATH="/root/.bun/bin:${PATH}"
+
+# Configura o ambiente
+ENV NODE_ENV=production
+ENV PORT=6541
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -28,7 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copia os arquivos de definição de dependências primeiro para aproveitar o cache do Docker
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 
 # Instala as dependências do projeto
 RUN bun install --frozen-lockfile --production
