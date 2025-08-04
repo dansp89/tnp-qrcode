@@ -18,7 +18,10 @@
   "private": false,
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts"
+    "start": "bun run dist/index.js",
+    "build": "rm -rf dist && tsc",
+    "prestart": "bun run build",
+    "prod": "bun run build && NODE_ENV=production bun dist/index.js"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
