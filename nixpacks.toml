@@ -10,7 +10,8 @@ nixPkgs = [
   'cairo',
   'libjpeg',
   'giflib',
-  'librsvg'
+  'librsvg',
+  'unzip'
 ]
 
 [phases.install]

@@ -8,10 +8,10 @@ nixPkgs = [
   'pkg-config',
   'pango',
   'cairo',
-  'pango',
   'libjpeg',
   'giflib',
-  'librsvg'
+  'librsvg',
+  'unzip'
 ]
 
 [phases.install]
