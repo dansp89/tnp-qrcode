@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     && rm -rf /var/lib/apt/lists/*
 
-# Instala o Bun (versão específica para maior estabilidade)
-RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.43"
+# Instala o Bun
+RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.3"
 
 # Configura o ambiente
 ENV NODE_ENV=production \
