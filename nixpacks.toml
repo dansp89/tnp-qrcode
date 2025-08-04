@@ -1,8 +1,7 @@
-# Configuração para usar Bun no Nixpacks
 [phases.setup]
 nixPkgs = [
   'nodejs-18_x',
-  'yarn',
+  'bun',
   'python3',
   'gcc',
   'pkg-config',
@@ -15,28 +14,15 @@ nixPkgs = [
 ]
 
 [phases.install]
-cmds = [
-  'yarn set version stable',
-  'yarn install --frozen-lockfile'
-]
+cmds = ["bun install"]
 
 [phases.build]
-cmds = [
-  'yarn build'
-]
+cmds = ["bun run build"]
 
 [start]
-cmd = 'yarn start'
+cmd = "bun run start"
 
-[build.args]
-NODE_VERSION = "20"
-
-[build.environment]
+[variables]
 NODE_ENV = "production"
-PORT = "6541"
-BUN_INSTALL = "$HOME/.bun"
-PATH = "$BUN_INSTALL/bin:$PATH"
-
-# Desabilita o cache do Nixpacks para evitar problemas
-[build]
-cache = false
+BUN_INSTALL = "/root/.bun"
+PATH = "${BUN_INSTALL}/bin:${PATH}"
