@@ -1,11 +1,15 @@
+# Configuração simplificada para o Nixpacks
 [phases.setup]
 # Usando Node.js 20 que tem melhor suporte ao Bun
-nixPkgs = ['nodejs-20_x', 'bun', 'python3', 'gcc', 'pkg-config', 'pango', 'cairo', 'jpeg', 'giflib', 'librsvg']
+nixPkgs = ['nodejs-20_x', 'bun']
 
 [phases.install]
 # Instala as dependências do projeto
 cmds = [
-  'bun install --frozen-lockfile --no-save'
+  'curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.43"',
+  'export PATH="$HOME/.bun/bin:$PATH"',
+  'bun --version',
+  'bun install --frozen-lockfile'
 ]
 
 [phases.build]
@@ -30,3 +34,95 @@ PORT = "6541"
 # Desabilita o cache do Nixpacks para evitar problemas
 [build]
 cache = false
+
+# Instala dependências do sistema necessárias
+[phases.setup.nix]
+  [[phases.setup.nix.pkg]]
+  name = "python3"
+  
+  [[phases.setup.nix.pkg]]
+  name = "gcc"
+  
+  [[phases.setup.nix.pkg]]
+  name = "pkg-config"
+  
+  [[phases.setup.nix.pkg]]
+  name = "pango"
+  
+  [[phases.setup.nix.pkg]]
+  name = "cairo"
+  
+  [[phases.setup.nix.pkg]]
+  name = "jpeg"
+  
+  [[phases.setup.nix.pkg]]
+  name = "giflib"
+  
+  [[phases.setup.nix.pkg]]
+  name = "librsvg"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libjpeg"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libpng"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libtool"
+  
+  [[phases.setup.nix.pkg]]
+  name = "automake"
+  
+  [[phases.setup.nix.pkg]]
+  name = "autoconf"
+  
+  [[phases.setup.nix.pkg]]
+  name = "nasm"
+  
+  [[phases.setup.nix.pkg]]
+  name = "pixman"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libffi"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libyaml"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libx11"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxrender"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxext"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxcb"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxau"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxdmcp"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxfixes"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxrender"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxcb"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxau"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxdmcp"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxfixes"
+  
+  [[phases.setup.nix.pkg]]
+  name = "libxrender"
