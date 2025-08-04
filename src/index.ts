@@ -53,7 +53,7 @@ app.post('/gerar-qrcode', async (req: express.Request<{}, {}, GerarQRCodeRequest
     }
 
     // Caminho para a imagem de fundo
-    const backgroundPath = path.join(__dirname, '../fly.jpg');
+    const backgroundPath = path.join(__dirname, '../flyer.jpg');
     
     // Carrega a imagem de fundo
     const background = await Jimp.read(backgroundPath);

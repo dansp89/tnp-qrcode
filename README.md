@@ -61,7 +61,7 @@ Aplicativo web para gerar QR Codes PIX personalizados com fundo personalizado.
 
 ### Imagem de Fundo
 
-Substitua o arquivo `fly.jpg` na raiz do projeto por sua própria imagem. A imagem será redimensionada automaticamente.
+Substitua o arquivo `flyer.jpg` na raiz do projeto por sua própria imagem. A imagem será redimensionada automaticamente.
 
 ### Ajustes de Posicionamento
 
