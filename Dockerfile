@@ -1,6 +1,7 @@
-FROM oven/bun:1.1.43-slim
+# Estágio de build
+FROM node:18-slim AS builder
 
-# Instala dependências de sistema
+# Instala dependências de sistema necessárias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3 \
@@ -12,14 +13,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     librsvg2-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Instala o Bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
+
 # Define diretório de trabalho
 WORKDIR /app
 
 # Copia arquivos de dependência
 COPY package.json bun.lockb ./
 
-# Instala dependências com limite de memória
-RUN NODE_OPTIONS=--max_old_space_size=4096 bun install --frozen-lockfile --no-save
+# Instala dependências
+RUN bun install --frozen-lockfile --no-save
 
 # Copia o restante do projeto
 COPY . .
@@ -27,8 +32,33 @@ COPY . .
 # Build da aplicação
 RUN bun run build
 
+# Estágio final
+FROM node:18-slim
+
+# Instala dependências de runtime
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libjpeg62-turbo \
+    libgif7 \
+    librsvg2-2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instala o Bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
+
+# Define diretório de trabalho
+WORKDIR /app
+
+# Copia arquivos do estágio de build
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json .
+
 # Expõe a porta
 EXPOSE 6541
 
 # Inicia a aplicação
-CMD ["bun", "start"]
+CMD ["bun", "run", "start"]
