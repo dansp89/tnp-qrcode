@@ -1,6 +1,6 @@
 FROM oven/bun:1.1.43-slim
 
-# Install system dependencies
+# Instala dependências de sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3 \
@@ -12,35 +12,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     librsvg2-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Define diretório de trabalho
 WORKDIR /app
 
-# Copy package files
-COPY package.json bun.lock ./
+# Copia arquivos de dependência
+COPY package.json bun.lockb ./
 
-# Install dependencies
-RUN bun install --frozen-lockfile --no-save
-
-# Set working directory
-WORKDIR /app
-
-# Copy package files
-COPY package.json bun.lock ./
-
-# Install dependencies with memory limit
+# Instala dependências com limite de memória
 RUN NODE_OPTIONS=--max_old_space_size=4096 bun install --frozen-lockfile --no-save
 
-# Copy the rest of the application
+# Copia o restante do projeto
 COPY . .
 
-# Build the application
+# Build da aplicação
 RUN bun run build
 
-# Expose the port the app runs on
+# Expõe a porta
 EXPOSE 6541
 
-# Set proper permissions
-RUN chown -R node:node /app
-USER node
-
-# Start the application
+# Inicia a aplicação
 CMD ["bun", "start"]
