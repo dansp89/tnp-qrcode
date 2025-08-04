@@ -30,19 +30,22 @@ ENV NODE_ENV=production \
 WORKDIR /app
 
 # Copia os arquivos de definição de dependências primeiro para aproveitar o cache do Docker
-COPY package.json bun.lock ./
+COPY package.json bun.lock* ./
 
 # Instala as dependências do projeto
-RUN bun install --frozen-lockfile --no-save
+RUN echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /root/.bashrc && \
+    . /root/.bashrc && \
+    bun --version && \
+    bun install --no-save
 
 # Copia o restante dos arquivos do projeto
 COPY . .
 
 # Compila o TypeScript
-RUN bun run build
+RUN . /root/.bashrc && bun run build
 
 # Expõe a porta que a aplicação vai rodar
 EXPOSE 6541
 
 # Comando para iniciar a aplicação
-CMD ["bun", "run", "start"]
+CMD ["/bin/bash", "-c", "source /root/.bashrc && bun run start"]
