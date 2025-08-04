@@ -1,0 +1,45 @@
+{
+  "name": "tnp-qrcode",
+  "version": "1.0.0",
+  "description": "Gerador de QR Code PIX com imagem de fundo personalizável",
+  "author": "dansP89",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dansp89/gerar-codigo-tnp.git"
+  },
+  "homepage": "https://github.com/dansp89/gerar-codigo-tnp#readme",
+  "bugs": {
+    "url": "https://github.com/dansp89/gerar-codigo-tnp/issues"
+  },
+  "keywords": ["pix", "qrcode", "bun", "typescript", "brasil"],
+  "module": "src/index.ts",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@types/express": "^4.17.21",
+    "@types/jimp": "^0.2.28",
+    "@types/node": "^20.11.28",
+    "@types/qrcode": "^1.5.5",
+    "bootstrap": "^5.3.2",
+    "canvas": "^3.1.2",
+    "express": "^4.18.2",
+    "jimp": "0.22.10",
+    "jquery": "^3.7.1",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.3.3",
+    "bun-types": "^1.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
