@@ -6,11 +6,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dansp89/gerar-codigo-tnp.git"
+    "url": "https://github.com/dansp89/tnp-qrcode.git"
   },
-  "homepage": "https://github.com/dansp89/gerar-codigo-tnp#readme",
+  "homepage": "https://github.com/dansp89/tnp-qrcode#readme",
   "bugs": {
-    "url": "https://github.com/dansp89/gerar-codigo-tnp/issues"
+    "url": "https://github.com/dansp89/tnp-qrcode/issues"
   },
   "keywords": ["pix", "qrcode", "bun", "typescript", "brasil"],
   "module": "src/index.ts",
