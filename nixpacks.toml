@@ -1,7 +1,7 @@
 # Configuração para usar Bun no Nixpacks
 [phases.setup]
 nixPkgs = [
-  'nodejs-20_x',
+  'nodejs-18_x',
   'bun',
   'python3',
   'gcc',
