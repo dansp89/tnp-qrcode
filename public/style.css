@@ -61,3 +61,9 @@
     width:  15px;
     height: 15px;
 }
+.imperador {
+    font-family: "Cinzel", serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+}
