@@ -14,27 +14,20 @@ Aplicativo web para gerar QR Codes PIX personalizados com fundo personalizado.
 ## Pré-requisitos
 
 - [Bun](https://bun.sh/) (versão 1.0.0 ou superior)
-- Node.js (opcional, apenas se preferir usar npm/yarn)
 
 ## Instalação
 
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/tnp-qrcode.git
+   git clone https://github.com/dansp89/tnp-qrcode.git
    cd tnp-qrcode
    ```
 
 2. Instale as dependências:
 
    ```bash
-   bun install
-   ```
-
-   Ou, se estiver usando npm:
-
-   ```bash
-   npm install
+   bun i
    ```
 
 ## Executando o projeto
@@ -44,8 +37,6 @@ Aplicativo web para gerar QR Codes PIX personalizados com fundo personalizado.
    ```bash
    bun run dev
    ```
-
-   Ou, para produção:
 
    ```bash
    bun run start

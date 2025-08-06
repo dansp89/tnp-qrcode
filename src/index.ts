@@ -43,13 +43,18 @@ const createQRCode = async (text: string, size: number): Promise<Buffer> => {
   return Buffer.from(base64Data, 'base64');
 };
 
+// Função para converter buffer em base64
+const bufferToBase64 = (buffer: Buffer): string => {
+  return `data:image/jpeg;base64,${buffer.toString('base64')}`;
+};
+
 // Rota para gerar os QR Codes
 app.post('/gerar-qrcode', async (req: express.Request<{}, {}, GerarQRCodeRequest>, res: express.Response) => {
   try {
     const { linkPix, linkReferencia } = req.body;
     
     if (!linkPix || !linkReferencia) {
-      return res.status(400).json({ error: 'Links PIX e de referência são obrigatórios' });
+      return res.status(400).json({ success: false, error: 'Links PIX e de referência são obrigatórios' });
     }
 
     // Caminho para a imagem de fundo
@@ -104,17 +109,15 @@ app.post('/gerar-qrcode', async (req: express.Request<{}, {}, GerarQRCodeRequest
     background.composite(qrPix, qrPixX, qrPixY);
     background.composite(qrRef, qrRefX, qrRefY);
     
-    // Caminho para salvar a imagem resultante
-    const outputPath = path.join(__dirname, '../public/qrcode-gerado.jpg');
+    // Converte a imagem para buffer
+    const buffer = await background.getBufferAsync(Jimp.MIME_JPEG);
+    const base64Image = bufferToBase64(buffer);
     
-    // Salva a imagem
-    await background.writeAsync(outputPath);
-    
-    // Retorna o caminho da imagem gerada
+    // Retorna a imagem em base64
     return res.json({ 
-      success: true,  
-      imageUrl: '/qrcode-gerado.jpg',
-      timestamp: Date.now() // Para evitar cache do navegador
+      success: true,
+      imageData: base64Image,
+      timestamp: Date.now()
     });
     
   } catch (error) {
@@ -125,6 +128,8 @@ app.post('/gerar-qrcode', async (req: express.Request<{}, {}, GerarQRCodeRequest
     });
   }
 });
+
+
 
 // Inicia o servidor
 app.listen(PORT, () => {
